@@ -39,7 +39,9 @@ r = Random.new
       beats += spb
       sleep spb
       # mac beep is limited to 2/sec puts "\a"
+      Process.fork {`afplay sounds/kick.mp3`}
       puts "unce"
+      puts Time.now
     else
       break
     end
