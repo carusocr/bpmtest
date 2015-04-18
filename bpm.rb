@@ -26,11 +26,13 @@ https://github.com/cwilso/metronome/tree/master/js
 =end
 
 clip_interval = ARGV[0].to_i
-num_clips = 1
+num_clips = ARGV[1].to_i
 r = Random.new
 (1..num_clips).each do |b|
   bpm = r.rand(8..40)*5.to_f
-  puts "Generating #{bpm} beat..."
+  #cheatmode for testing
+  #puts "Generating #{bpm} beat..."
+  puts "Generating beat..."
   sleep 1
   spb = 60.0/bpm
   beats = 0
@@ -38,12 +40,18 @@ r = Random.new
     if beats < clip_interval
       beats += spb
       sleep spb
-      # mac beep is limited to 2/sec puts "\a"
-      Process.fork {`afplay sounds/kick.mp3`}
-      puts "unce"
-      puts Time.now
+      Process.fork {`afplay sounds/kick_33.wav`}
+      #puts Time.now
     else
       break
     end
+  end
+  #add guess here
+  print "What was the bpm?: "
+  ans = STDIN.gets.strip
+  if ans == bpm
+    puts "CORRECT"
+  else
+    puts "Wrong, it was #{bpm}."
   end
 end
