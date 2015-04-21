@@ -29,7 +29,7 @@ clip_interval = ARGV[0].to_i
 num_clips = ARGV[1].to_i
 r = Random.new
 (1..num_clips).each do |b|
-  bpm = r.rand(8..40)*5.to_f
+  bpm = r.rand(8..40)*5.to_i #generate random beat of 40-200bpm, multiples of 5
   #cheatmode for testing
   #puts "Generating #{bpm} beat..."
   puts "Generating beat..."
@@ -41,14 +41,13 @@ r = Random.new
       beats += spb
       sleep spb
       Process.fork {`afplay sounds/kick_33.wav`}
-      #puts Time.now
     else
       break
     end
   end
   #add guess here
   print "What was the bpm?: "
-  ans = STDIN.gets.strip
+  ans = STDIN.gets.strip.to_i
   if ans == bpm
     puts "CORRECT"
   else
